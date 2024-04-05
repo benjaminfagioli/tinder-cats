@@ -123,6 +123,9 @@
       &.reset {
         transition: transform 0.3s ease;
         transform: translate(0) rotate(0) !important;
+        .choice {
+          opacity: 0.1;
+        }
       }
 
       & .choice {
@@ -138,18 +141,17 @@
         font-weight: bold;
         width: 90px;
         opacity: 0;
-        transition: 0.4s;
       }
       & .nope {
-        border-color: #ff6e63;
-        color: #ff6e63;
+        border-color: #ec4c41;
+        color: #ec4c41;
         transform: rotate(30deg);
         width: 100px;
       }
 
       & .like {
-        border-color: #63ff68;
-        color: #63ff68;
+        border-color: #3bff41;
+        color: #3bff41;
         left: 16px;
         transform: rotate(-30deg);
       }
@@ -354,7 +356,7 @@
         const choice = isRight
           ? actualCard.querySelector(".choice.like")
           : actualCard.querySelector(".choice.nope");
-        choice.style.opacity = "0";
+        // choice.style.opacity = "0";
         actualCard.classList.add("reset");
       } else {
         actualCard.classList.add(pullDeltaX > 0 ? "go-right" : "go-left");
