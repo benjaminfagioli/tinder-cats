@@ -123,9 +123,6 @@
       &.reset {
         transition: transform 0.3s ease;
         transform: translate(0) rotate(0) !important;
-        .choice {
-          opacity: 0.1;
-        }
       }
 
       & .choice {
@@ -356,7 +353,7 @@
         const choice = isRight
           ? actualCard.querySelector(".choice.like")
           : actualCard.querySelector(".choice.nope");
-        // choice.style.opacity = "0";
+        choice.style.opacity = "0";
         actualCard.classList.add("reset");
       } else {
         actualCard.classList.add(pullDeltaX > 0 ? "go-right" : "go-left");
