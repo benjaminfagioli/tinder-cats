@@ -89,6 +89,15 @@
     width: 100%;
     height: 100%;
     margin: 0 auto;
+    & > span {
+      display: grid;
+      place-content: center;
+      color: #777;
+      font-size: 14px;
+      text-align: center;
+      height: 100%;
+      z-index: -1;
+    }
 
     & article {
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.222);
@@ -114,6 +123,35 @@
       &.reset {
         transition: transform 0.3s ease;
         transform: translate(0) rotate(0) !important;
+      }
+
+      & .choice {
+        border-radius: 8px;
+        color: black;
+        border: 3px solid;
+        z-index: 9999;
+        position: absolute;
+        padding: 16px;
+        top: 16px;
+        right: 16px;
+        font-size: 24px;
+        font-weight: bold;
+        width: 90px;
+        opacity: 0;
+        transition: 0.4s;
+      }
+      & .nope {
+        border-color: #ff6e63;
+        color: #ff6e63;
+        transform: rotate(30deg);
+        width: 100px;
+      }
+
+      & .like {
+        border-color: #63ff68;
+        color: #63ff68;
+        left: 16px;
+        transform: rotate(-30deg);
       }
 
       & img {
@@ -153,7 +191,7 @@
       <img src="./img/tinder-logo.webp" alt="Tinder Logo" />
     </header>
     <div class="cards">
-      <article>
+      <!-- <article>
         <img src="img/2.webp" alt="Álex, brown hair man, 25 years" />
         <h2>Álex <span>25</span></h2>
         <div class="choice nope">NOPE</div>
@@ -165,7 +203,80 @@
         <h2>Leila <span>27</span></h2>
         <div class="choice nope">NOPE</div>
         <div class="choice like">LIKE</div>
+      </article> -->
+      <article>
+        <img
+          src="img/cats/Imagen de WhatsApp 2024-04-05 a las 12.51.53_e87f6a48.jpg"
+          alt=""
+        />
+        <h2>Tomi <span>4 años</span></h2>
+        <div class="choice nope">NOPE</div>
+        <div class="choice like">LIKE</div>
       </article>
+      <article>
+        <img src="img/cats/norwegian-forest-a.jpg.webp" alt="" />
+        <h2>Luna <span>5 años</span></h2>
+        <div class="choice nope">NOPE</div>
+        <div class="choice like">LIKE</div>
+      </article>
+      <article>
+        <img src="img/cats/leon_436_7_600.jpg" alt="" />
+        <h2>Simba <span>3 meses</span></h2>
+        <div class="choice nope">NOPE</div>
+        <div class="choice like">LIKE</div>
+      </article>
+      <article>
+        <img src="img/cats/IMG-20240405-WA0019.jpg" alt="" />
+        <h2>PEP <span>6 meses</span></h2>
+        <div class="choice nope">NOPE</div>
+        <div class="choice like">LIKE</div>
+      </article>
+      <article>
+        <img
+          src="img/cats/Imagen de WhatsApp 2024-04-05 a las 12.54.45_4f122663.jpg"
+          alt=""
+        />
+        <h2>Thelma <span>3 años</span></h2>
+        <div class="choice nope">NOPE</div>
+        <div class="choice like">LIKE</div>
+      </article>
+      <article>
+        <img src="img/cats/IMG-20240405-WA0020.jpg" alt="" />
+        <h2>Pipino <span>3 años</span></h2>
+        <div class="choice nope">NOPE</div>
+        <div class="choice like">LIKE</div>
+      </article>
+      <article>
+        <img src="img/cats/gatito chiquitin.jpg" alt="" />
+        <h2>Garfield <span>1 mes</span></h2>
+        <div class="choice nope">NOPE</div>
+        <div class="choice like">LIKE</div>
+      </article>
+      <article>
+        <img src="img/cats/juguete-casero-gato.jpg" alt="" />
+        <h2>Nala <span>5 años</span></h2>
+        <div class="choice nope">NOPE</div>
+        <div class="choice like">LIKE</div>
+      </article>
+      <article>
+        <img src="img/cats/IMG-20240405-WA0021.jpg" alt="" />
+        <h2>Lola <span>3 años</span></h2>
+        <div class="choice nope">NOPE</div>
+        <div class="choice like">LIKE</div>
+      </article>
+      <article>
+        <img
+          src="img/cats/c1f3b929-5bb7-4ba5-96ba-828cfb6db925_16-9-aspect-ratio_default_0.jpg"
+          alt=""
+        />
+        <h2>Misty <span>5</span></h2>
+        <div class="choice nope">NOPE</div>
+        <div class="choice like">LIKE</div>
+      </article>
+      <span>
+        No hay mas gatitos cerca de ti...<br />
+        Vuelve a intentarlo más tarde.
+      </span>
     </div>
     <footer>
       <button class="is-refresh" aria-label="undo"></button>
@@ -221,7 +332,14 @@
       // cambiar el cursor
       actualCard.style.cursor = "grabbing";
 
-      console.log(pullDeltaX);
+      // cambiar opacidad del choice
+      const opacity = Math.abs(pullDeltaX) / 100;
+      const isRight = pullDeltaX > 0;
+
+      const choice = isRight
+        ? actualCard.querySelector(".choice.like")
+        : actualCard.querySelector(".choice.nope");
+      choice.style.opacity = opacity;
     }
     function onEnd() {
       document.removeEventListener("mousemove", onMove);
@@ -231,6 +349,12 @@
 
       // saber si un usuario tomó una decisión
       if (pullDeltaX <= decitionRange && pullDeltaX >= -decitionRange) {
+        const isRight = pullDeltaX > 0;
+
+        const choice = isRight
+          ? actualCard.querySelector(".choice.like")
+          : actualCard.querySelector(".choice.nope");
+        choice.style.opacity = "0";
         actualCard.classList.add("reset");
       } else {
         actualCard.classList.add(pullDeltaX > 0 ? "go-right" : "go-left");
